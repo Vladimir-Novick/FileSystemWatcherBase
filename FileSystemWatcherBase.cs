@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 
 
@@ -18,7 +19,7 @@ namespace SGcombo.System
     /// <summary>
     ///  Using FileSystemWatcher to monitor a directory 
     /// </summary>
-    public class FileSystemWatcherBase 
+    public class FileSystemWatcherBase : IDisposable
     {
 
         private string WatchDirectory { get; set; }
@@ -91,7 +92,13 @@ namespace SGcombo.System
 
         }
 
-     
-
+        public void Dispose()
+        {
+            if (watcher != null)
+            {
+                watcher.Dispose();
+                watcher = null;
+            }
+        }
     }
 }
